@@ -1,0 +1,1 @@
+# dev30-mini-linter
