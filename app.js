@@ -6,27 +6,37 @@ let unnecessaryWords = ['extremely', 'literally', 'actually' ];
 
 const storyWords = story.split(' ');
 
-const betterWords = storyWords.filter(word => !unnecessaryWords.includes(word));
+//const betterWords = storyWords.filter(word => !unnecessaryWords.includes(word));
 
-const countOverUsedWords = storyWords.reduce(function(acc, cur){
-  if(overusedWords.includes(cur)){
-    if(cur === 'really'){
-      acc['really'] += 1;
-    }else if(cur === 'very'){
-      acc['very'] += 1;
-    }else if(cur === 'basically'){
-      acc['basically'] += 1;
-    }
+const betterWords = storyWords.filter(function(word){
+  if(!unnecessaryWords.includes(word)){
+    return word;
   }
-  return acc;
-}, {'really' : 0, 'very' : 0, 'basically' : 0});
+});
 
-const storySentence = story.split(/(?=[.!]) | (?<=[.!])/g);
-const countSentence = storySentence.reduce(function(acc, cur){
-  if(cur === '.' || cur == '!'){
-    acc ++;
+console.log(betterWords);
+
+const overusedWordCount = storyWords.reduce(function(acc, word){
+  if(overusedWords.includes(word)){
+    if(unnecessaryWords.includes(word)){
+      acc += 1;
+    }
   }
   return acc;
 }, 0);
 
+console.log(overusedWordCount);
+
+let sentenceCount = 0;
+
+for(let i = 0; i < storyWords.length; i++){
+  const word = storyWords[i];
+
+  if(word[word.length - 1] === '!' || word[word.length - 1] === '.'){
+    sentenceCount += 1;
+  }
+
+}
+
+console.log(sentenceCount);
 console.log(betterWords.join(' '));
